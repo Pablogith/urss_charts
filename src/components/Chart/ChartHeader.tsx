@@ -21,9 +21,9 @@ export const ChartHeader = () => {
             <span className="sr-only">Poprzedni miesiąc</span>
             <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                  aria-hidden="true">
-              <path fill-rule="evenodd"
+              <path fillRule="evenodd"
                     d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                    clip-rule="evenodd"/>
+                    clipRule="evenodd"/>
             </svg>
           </button>
           <button type="button"
@@ -36,9 +36,9 @@ export const ChartHeader = () => {
             <span className="sr-only">Następny miesiąc</span>
             <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                  aria-hidden="true">
-              <path fill-rule="evenodd"
+              <path fillRule="evenodd"
                     d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                    clip-rule="evenodd"/>
+                    clipRule="evenodd"/>
             </svg>
           </button>
         </div>
@@ -51,22 +51,11 @@ export const ChartHeader = () => {
               Miesiąc
               <svg className="ml-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                    fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd"
+                <path fillRule="evenodd"
                       d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                      clip-rule="evenodd"/>
+                      clipRule="evenodd"/>
               </svg>
             </button>
-
-
-            {/*Dropdown menu, show/hide based on menu state.*/ }
-
-            {/*Entering: "transition ease-out duration-100"*/ }
-            {/*  From: "transform opacity-0 scale-95"*/ }
-            {/*  To: "transform opacity-100 scale-100"*/ }
-            {/*Leaving: "transition ease-in duration-75"*/ }
-            {/*  From: "transform opacity-100 scale-100"*/ }
-            {/*  To: "transform opacity-0 scale-95"*/ }
-
             {
               viewSelectorIsOpen && (
                 <div
@@ -100,17 +89,6 @@ export const ChartHeader = () => {
                 d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/>
             </svg>
           </button>
-
-
-          {/*Dropdown menu, show/hide based on menu state.*/ }
-
-          {/*Entering: "transition ease-out duration-100"*/ }
-          {/*  From: "transform opacity-0 scale-95"*/ }
-          {/*  To: "transform opacity-100 scale-100"*/ }
-          {/*Leaving: "transition ease-in duration-75"*/ }
-          {/*  From: "transform opacity-100 scale-100"*/ }
-          {/*  To: "transform opacity-0 scale-95"*/ }
-
           {
             viewSelectorIsOpen && (
               <div

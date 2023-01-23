@@ -1,31 +1,28 @@
 import React, { useState } from 'react';
 import { Header } from './components/Header';
 import { ContentWrapper } from './components/ContentWrapper';
-import { ChartHeader } from './components/Chart/ChartHeader';
-import { VerticalBarChart } from './components/Chart/VerticalBarChart';
 import { SimpleHeaderSection } from './components/SimpleHeaderSection';
-import { Table } from './components/Table';
+import { ChartView } from './components/Chart/ChartView';
+import { TableView } from './components/TableView';
+import { PieChart } from './components/PieChart';
+import { QueryClientContext } from './context/QueryClientContext';
 
 export const App = () => {
   const [ currentView, setCurrentView ] = useState('chart');
 
-  const handleChangeView = (viewName: string) => {
-    setCurrentView(viewName);
-  };
+  const handleChangeView = (viewName: string) => setCurrentView(viewName);
 
   return (
     <>
-      <Header/>
-      <ContentWrapper>
-        <SimpleHeaderSection handleChangeView={handleChangeView} currentViewName={currentView} />
-        { (currentView === 'chart') && (
-          <>
-            <ChartHeader/>
-            <VerticalBarChart/>
-          </>
-        ) }
-        { (currentView === 'table') && <Table/> }
-      </ContentWrapper>
+      <QueryClientContext>
+        <Header/>
+        <ContentWrapper>
+          <SimpleHeaderSection handleChangeView={ handleChangeView } currentViewName={ currentView }/>
+          { (currentView === 'chart') && <ChartView/> }
+          { (currentView === 'table') && <TableView/> }
+          { (currentView === 'pie-chart') && <PieChart/> }
+        </ContentWrapper>
+      </QueryClientContext>
     </>
   );
 }
