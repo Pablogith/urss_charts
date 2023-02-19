@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1a21c19c-c29c-4096-8153-fca41b56c7d0" name="sak_unix">
+        <fileTransfer rootFolder="/home/kolagrp/sak" accessType="SFTP" host="student.agh.edu.pl" port="22" sshConfigId="365988fa-4b58-4d52-a028-b737f793251a" sshConfig="sak@student.agh.edu.pl:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

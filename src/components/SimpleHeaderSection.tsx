@@ -8,12 +8,13 @@ interface Props {
 interface ViewType {
   name: string;
   value: string;
+  isVisible: boolean;
 }
 
 const viewTypes: ViewType[] = [
-  { name: 'Wykres', value: 'chart' },
-  { name: 'Wykres Kołowy', value: 'pie-chart' },
-  { name: 'Tabela', value: 'table' }
+  { name: 'Wykres', value: 'chart', isVisible: true },
+  { name: 'Wykres Kołowy', value: 'pie-chart', isVisible: false },
+  { name: 'Tabela', value: 'table', isVisible: false }
 ];
 
 export const SimpleHeaderSection = (props: Props) => {
@@ -25,7 +26,9 @@ export const SimpleHeaderSection = (props: Props) => {
     props.handleChangeView(selectedView);
   };
 
-  const desktopViewTypeList = viewTypes.map(viewType => {
+  const desktopViewTypeList = viewTypes
+    .filter(viewType => viewType.isVisible)
+    .map(viewType => {
     return (
       <>
         <button
@@ -38,7 +41,9 @@ export const SimpleHeaderSection = (props: Props) => {
     );
   });
 
-  const mobileViewTypeList = viewTypes.map(viewType => {
+  const mobileViewTypeList = viewTypes
+    .filter(viewType => viewType.isVisible)
+    .map(viewType => {
     return (
       <>
         <option key={ viewType.value } selected={ props.currentViewName === viewType.value } value={ viewType.value }>
