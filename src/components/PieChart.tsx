@@ -1,20 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
-
-interface Props {
-  data: any;
-}
+import { DepartmentsDataContext } from '../context/DepartmentsDataContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const PieChart = (props: Props) => {
-  console.log(props);
-  const {
-    departments
-  } = props.data;
+export const PieChart = () => {
+  const departmentsData = useContext(DepartmentsDataContext);
+  const { departments } = departmentsData;
   const fakeColors = departments.map(() => faker.color.rgb({ includeAlpha: true }));
 
   const data = {
@@ -29,5 +24,5 @@ export const PieChart = (props: Props) => {
       },
     ],
   };
-  return <Pie data={ data }/>;
+  return <Pie data={data} />;
 };

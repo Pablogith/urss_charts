@@ -1,7 +1,7 @@
 export interface DepartmentsStats {
-  'wydzialy': Department[];
-  'stats_wydzial': DepartmentStats[];
-  'wszystko_wydzialy': {
+  wydzialy: Department[];
+  stats_wydzial: DepartmentStats[];
+  wszystko_wydzialy: {
     departmentId: Department['id'];
     value: number;
   }[];

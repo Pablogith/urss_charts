@@ -9,33 +9,29 @@ export const normalizeData = (data: any): any => {
   const formattedDepartmentsStats = [];
   const formattedAllDepartments = [];
 
-  for (let [key, value] of Object.entries(departments)) {
+  for (const [key, value] of Object.entries(departments)) {
     const department: Department = {
       id: key,
-      name: value as string
+      name: value as string,
     };
     formattedDepartments.push(department);
   }
 
-  for (let [key, value] of Object.entries(allDepartments)) {
+  for (const [key, value] of Object.entries(allDepartments)) {
     const departmentData: {
       departmentId: Department['id'];
       value: number;
     } = {
       departmentId: key,
-      value: value as number
+      value: value as number,
     };
 
     formattedAllDepartments.push(departmentData);
   }
 
-  for (let [key, value] of Object.entries(departmentsStats)) {
-
-  }
-
   return {
     departments: formattedDepartments,
     departmentsStats,
-    allDepartments: formattedAllDepartments
+    allDepartments: formattedAllDepartments,
   };
 };

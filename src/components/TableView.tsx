@@ -4,7 +4,7 @@ import { Table } from './Table';
 export const TableView = () => {
   return (
     <>
-      <Table/>
+      <Table />
     </>
   );
 };
