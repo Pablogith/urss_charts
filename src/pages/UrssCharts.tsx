@@ -22,8 +22,8 @@ export const UrssCharts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //        const response = await axios.get('https://urss:eidai5Vah0Phoh7ubo0eagh9choQuahphe1taBohT7giezisieneihe0eisomu3i@api.jakosc.agh.edu.pl/api.php');
-        const exampleData = JSON.parse(departmentsData);
+//        const response = await axios.get('https://urss:eidai5Vah0Phoh7ubo0eagh9choQuahphe1taBohT7giezisieneihe0eisomu3i@api.jakosc.agh.edu.pl/api.php');
+         const exampleData = JSON.parse(departmentsData);
         const normalizedData = normalizeData(exampleData);
         setData(normalizedData);
       } catch (error) {
