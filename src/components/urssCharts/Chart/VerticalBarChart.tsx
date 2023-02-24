@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  BarElement,
-  CategoryScale,
-  Chart as ChartJS,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from 'chart.js';
+import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -15,10 +7,11 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 interface Props {
   data: any;
   currentDate: string;
+  currentChartScale: number;
 }
 
 export const VerticalBarChart = (props: Props) => {
-  const { data, currentDate } = props;
+  const { data, currentDate, currentChartScale } = props;
 
   const getDepartmentNamesFromCurrentDate = () => {
     const departmentsData = data.departmentsStats[currentDate];
@@ -31,7 +24,7 @@ export const VerticalBarChart = (props: Props) => {
       if (currentDateDepartmentsId.includes(department.id)) {
         const valueOfCurrentDepartment = departmentsData[department.id];
         const currentDepartmentMax = allDepartments.find(
-          (dep: any) => dep.departmentId == department.id,
+          (dep: any) => dep.departmentId == department.id
         );
         const value = (100 * valueOfCurrentDepartment) / currentDepartmentMax.value;
 
@@ -39,7 +32,7 @@ export const VerticalBarChart = (props: Props) => {
           ...department,
           value: value,
           fillCount: valueOfCurrentDepartment,
-          max: currentDepartmentMax.value,
+          max: currentDepartmentMax.value
         });
       }
     }
@@ -56,7 +49,7 @@ export const VerticalBarChart = (props: Props) => {
 
     return {
       name,
-      formattedName,
+      formattedName
     };
   });
 
@@ -64,31 +57,31 @@ export const VerticalBarChart = (props: Props) => {
     responsive: true,
     scales: {
       y: {
-        max: 100,
-      },
+        max: currentChartScale
+      }
     },
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: 'top' as const
       },
       title: {
         display: true,
-        text: 'Ankiety prowadzących z podziałem na wydziały (wypełnienia)',
+        text: 'Ankiety prowadzących z podziałem na wydziały (wypełnienia)'
       },
       tooltip: {
         callbacks: {
-          title: function (context: any) {
+          title: function(context: any) {
             const label = context.at(0).label;
             const labelIndex = departmentNames.findIndex((name) => name.formattedName === label);
 
             return departmentNames[labelIndex].name;
           },
-          label: function (context: any) {
+          label: function(context: any) {
             return `${context.formattedValue}%`;
-          },
-        },
-      },
-    },
+          }
+        }
+      }
+    }
   };
 
   const chartData = {
@@ -97,9 +90,9 @@ export const VerticalBarChart = (props: Props) => {
       {
         label: 'Wypełnienia',
         data: getDepartmentNamesFromCurrentDate().map((data) => parseFloat(data.value).toFixed(2)),
-        backgroundColor: 'rgba(23, 163, 74, 0.5)',
-      },
-    ],
+        backgroundColor: 'rgba(23, 163, 74, 0.5)'
+      }
+    ]
   };
 
   return <Bar options={chartOptions} data={chartData} />;

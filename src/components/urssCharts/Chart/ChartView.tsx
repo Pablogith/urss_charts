@@ -18,12 +18,21 @@ type DepartmentData = {
 export const ChartView = (props: Props) => {
   const data = props.data as DepartmentsData;
   const [currentState, setCurrentState] = useState({
-    currentDate: Object.keys(data.departmentsStats).at(-1) as string
+    currentDate: Object.keys(data.departmentsStats).at(-1) as string,
+    currentChartScale: 100
   });
 
   const handleChangeCurrentDate = (date: string) => {
     setCurrentState({
+      ...currentState,
       currentDate: date
+    });
+  };
+
+  const handleChangeChartScale = (scale: number) => {
+    setCurrentState({
+      ...currentState,
+      currentChartScale: scale
     });
   };
 
@@ -110,11 +119,13 @@ export const ChartView = (props: Props) => {
         departmentNameWithMaxFills={departmentNameWithMaxFills}
       />
       <ChartHeader
-        data={props.data}
+        data={data}
         currentDate={currentState.currentDate}
         onChangeCurrentDate={handleChangeCurrentDate}
+        onChangeChartScale={handleChangeChartScale}
       />
-      <VerticalBarChart data={props.data} currentDate={currentState.currentDate} />
+      <VerticalBarChart data={data} currentDate={currentState.currentDate}
+                        currentChartScale={currentState.currentChartScale} />
     </>
   );
 };
