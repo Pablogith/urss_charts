@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import { ChartHeader } from './ChartHeader';
 import { VerticalBarChart } from './VerticalBarChart';
-import { SimpleStats } from '../SimpleStats';
+import { StatsWrapper } from '../StatsWrapper';
+import { DepartmentsData, DepartmentValue } from '../../../models/DepartmentsData';
 
 interface Props {
-  data: any;
+  data: DepartmentsData | object;
 }
 
-export const ChartView = (props: Props = { data: {} }) => {
-  const { data } = props;
+type DepartmentData = {
+  name: string;
+  value: number;
+  fillCount: number;
+  max: number;
+};
+
+export const ChartView = (props: Props) => {
+  const data = props.data as DepartmentsData;
   const [currentState, setCurrentState] = useState({
     currentDate: Object.keys(data.departmentsStats).at(-1) as string
   });
@@ -22,13 +30,6 @@ export const ChartView = (props: Props = { data: {} }) => {
   const currentDateDate = data.departmentsStats[currentState.currentDate];
   const currentDateDateValues = Object.values(currentDateDate) as number[];
 
-  type DepartmentData = {
-    name: string;
-    value: number;
-    fillCount: number;
-    max: number;
-  };
-
   const getDepartmentNamesFromCurrentDate = (): DepartmentData[] => {
     const departmentsData = data.departmentsStats[currentState.currentDate];
     const currentDateDepartmentsId = Object.keys(departmentsData);
@@ -39,8 +40,10 @@ export const ChartView = (props: Props = { data: {} }) => {
     for (const department of departments) {
       if (currentDateDepartmentsId.includes(department.id)) {
         const valueOfCurrentDepartment: string | number = departmentsData[department.id];
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         const currentDepartmentMax: number = allDepartments.find(
-          (dep: any) => dep.departmentId == department.id
+          (dep: DepartmentValue) => dep.departmentId == department.id
         ).value;
         const value = (100 * (valueOfCurrentDepartment as number)) / currentDepartmentMax;
 
@@ -58,7 +61,7 @@ export const ChartView = (props: Props = { data: {} }) => {
 
   const maxNumberOfFillsInPercentage: number = (() => {
     const itemWithBiggestValue = Math.max(
-            ...getDepartmentNamesFromCurrentDate().map((item: DepartmentData) => item.value)
+      ...getDepartmentNamesFromCurrentDate().map((item: DepartmentData) => item.value)
     ).toString();
 
     return Number(parseFloat(itemWithBiggestValue).toFixed(2));
@@ -100,7 +103,7 @@ export const ChartView = (props: Props = { data: {} }) => {
 
   return (
     <>
-      <SimpleStats
+      <StatsWrapper
         allFillings={allFillingsInPercentage}
         averageNumberOfFills={averageNumberOfFillsInPercentage}
         maximumNumberOfFills={maxNumberOfFillsInPercentage}

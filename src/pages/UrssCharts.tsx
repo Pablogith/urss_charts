@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Header } from '../components/Header';
-import { ContentWrapper } from '../components/ContentWrapper';
-import { SimpleHeaderSection } from '../components/SimpleHeaderSection';
-import { ChartView } from '../components/Chart/ChartView';
-import { TableView } from '../components/TableView';
-import { PieChart } from '../components/PieChart';
-import { Footer } from '../components/Footer';
+import { Header } from '../components/urssCharts/Header';
+import { ContentWrapper } from '../components/urssCharts/ContentWrapper';
+import { SimpleHeaderSection } from '../components/urssCharts/SimpleHeaderSection';
+import { ChartView } from '../components/urssCharts/Chart/ChartView';
+import { Footer } from '../components/urssCharts/Footer';
 import { normalizeData } from '../helpers/normalizeData';
-import { LoadingCircle } from '../components/LoadingCircle';
+import { LoadingCircle } from '../components/urssCharts/LoadingCircle';
 import { departmentsData } from '../exampleData/data';
 import { DepartmentsDataStore } from '../context/DepartmentsDataStore';
+import { DepartmentsData } from '../models/DepartmentsData';
 
 export const UrssCharts = () => {
   const [currentView, setCurrentView] = useState('chart');
@@ -22,14 +21,20 @@ export const UrssCharts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-//        const response = await axios.get('https://urss:eidai5Vah0Phoh7ubo0eagh9choQuahphe1taBohT7giezisieneihe0eisomu3i@api.jakosc.agh.edu.pl/api.php');
-         const exampleData = JSON.parse(departmentsData);
-        const normalizedData = normalizeData(exampleData);
+        const response = await axios.get('https://urss:eidai5Vah0Phoh7ubo0eagh9choQuahphe1taBohT7giezisieneihe0eisomu3i@api.jakosc.agh.edu.pl/api.php');
+        const normalizedData: DepartmentsData = normalizeData(response.data);
         setData(normalizedData);
+        console.log(normalizedData);
       } catch (error) {
-        console.error(error);
-        setIsError(true);
-        setError(error as any);
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+          const exampleData = JSON.parse(departmentsData);
+          const normalizedData: DepartmentsData = normalizeData(exampleData);
+          setData(normalizedData);
+        } else {
+          console.error(error);
+          setIsError(true);
+          setError(error as any);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -44,12 +49,14 @@ export const UrssCharts = () => {
     <>
       <SimpleHeaderSection handleChangeView={handleChangeView} currentViewName={currentView} />
       {currentView === 'chart' && <ChartView data={data} />}
-      {currentView === 'table' && <TableView />}
-      {currentView === 'pie-chart' && <PieChart />}
     </>
   );
 
-  const errorMessage = <h1>Wystąpił problem...</h1>;
+  const errorMessage = (
+    <div className="w-full text-center mt-10">
+      <h1>Wystąpił problem...</h1>
+    </div>
+  );
 
   return (
     <DepartmentsDataStore>

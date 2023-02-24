@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const ChartHeader = (props: Props) => {
-  const { data } = props;
+  const { data, currentDate } = props;
   const departmentsStatsDates = Object.keys(data.departmentsStats);
 
   const [viewSelectorIsOpen, setViewSelectorIsOpen] = useState(false);
@@ -24,7 +24,7 @@ export const ChartHeader = (props: Props) => {
   return (
     <header className='flex items-center justify-between border-b border-gray-200 py-4 px-6 lg:flex-none'>
       <h1 className='text-lg font-semibold text-gray-900'>
-        <time dateTime='2022-01'>{props.currentDate}</time>
+        <time dateTime='2022-01'>{currentDate}</time>
       </h1>
       <div className='flex items-center'>
         <div className='hidden md:ml-4 md:flex md:items-center'>
@@ -67,7 +67,7 @@ export const ChartHeader = (props: Props) => {
                         key={date}
                         onClick={() => handleClickSelectorElement(date)}
                         className={
-                          date == props.currentDate
+                          date == currentDate
                             ? 'text-green-500 block px-4 py-2 text-sm'
                             : 'text-gray-700 block px-4 py-2 text-sm'
                         }
@@ -108,16 +108,6 @@ export const ChartHeader = (props: Props) => {
               aria-orientation='vertical'
               aria-labelledby='menu-0-button'
             >
-              <div className='py-1' role='none'>
-                <a
-                  href='src/components#'
-                  className='text-gray-700 block px-4 py-2 text-sm'
-                  role='menuitem'
-                  id='menu-0-item-1'
-                >
-                  Dzisiaj
-                </a>
-              </div>
               <div className='py-1' role='none'>
                 {departmentsStatsDates.map((date) => {
                   return (

@@ -58,7 +58,7 @@ export const TableWithStickyHeader = () => {
                         Member
                       </td>
                       <td className='relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8'>
-                        <a href='#' className='text-indigo-600 hover:text-indigo-900'>
+                        <a href='src/components#' className='text-indigo-600 hover:text-indigo-900'>
                           Edit<span className='sr-only'>, Lindsay Walton</span>
                         </a>
                       </td>

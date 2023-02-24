@@ -1,13 +1,12 @@
-import { DepartmentsStats, Department } from '../models/DepartmentsStats';
+import { Department, DepartmentsData, DepartmentStats, DepartmentValue } from '../models/DepartmentsData';
 
-export const normalizeData = (data: any): any => {
+export const normalizeData = (data: any): DepartmentsData => {
   const departments = data['wydzialy'];
-  const departmentsStats = data['stats_wydzial'];
+  const departmentsStats: DepartmentStats[] = data['stats_wydzial'];
   const allDepartments = data['wszystko_wydzialy'];
 
   const formattedDepartments: Department[] = [];
-  const formattedDepartmentsStats = [];
-  const formattedAllDepartments = [];
+  const formattedAllDepartments: DepartmentValue[] = [];
 
   for (const [key, value] of Object.entries(departments)) {
     const department: Department = {
@@ -18,10 +17,7 @@ export const normalizeData = (data: any): any => {
   }
 
   for (const [key, value] of Object.entries(allDepartments)) {
-    const departmentData: {
-      departmentId: Department['id'];
-      value: number;
-    } = {
+    const departmentData: DepartmentValue = {
       departmentId: key,
       value: value as number,
     };
@@ -29,9 +25,11 @@ export const normalizeData = (data: any): any => {
     formattedAllDepartments.push(departmentData);
   }
 
-  return {
+  const formattedData: DepartmentsData = {
     departments: formattedDepartments,
     departmentsStats,
     allDepartments: formattedAllDepartments,
   };
+
+  return formattedData;
 };
